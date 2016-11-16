@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SnakeMess {
@@ -18,6 +19,10 @@ namespace SnakeMess {
         public List<Point> Body { get; private set; } = new List<Point>();
 
         public bool IsAlive { get; private set; } = true;
+
+        public ConsoleColor Color { get; set; } = ConsoleColor.Green;
+        public string HeadSymbol { get; set; } = "-";
+        public string BodySymbol { get; set; } = "0";
 
         public Snake(int length = 4) {
             Lenght = length;
@@ -40,5 +45,13 @@ namespace SnakeMess {
             return Body.Count - 1 - Lenght;
         }
 
+        public void Print(Point newHead) {
+            Console.ForegroundColor = Color;
+            Console.SetCursorPosition(Head.X, Head.Y);
+            Console.Write(BodySymbol);
+            Body.Add(newHead);
+            Console.SetCursorPosition(newHead.X, newHead.Y);
+            Console.Write(HeadSymbol);
+        }
     }
 }

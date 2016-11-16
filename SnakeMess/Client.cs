@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics;
 
 namespace SnakeMess {
@@ -12,17 +11,23 @@ namespace SnakeMess {
             var previousDirection = newDirection;
             int boardWidth = Console.WindowWidth, boardHeight = Console.WindowHeight;
             var time = new Stopwatch();
-            var snake = new Snake(4);
+            var snake = new Snake {
+                Color = ConsoleColor.Red,
+                HeadSymbol = "-",
+                BodySymbol = "A"
+            };
 
             Console.Clear();
             Console.CursorVisible = false;
             Console.Title = "Westerdals Oslo ACT - SNAKE";
-            Console.ForegroundColor = ConsoleColor.Green;
             Console.SetCursorPosition(10, 10);
-            Console.Write("@");
+            Console.Write(snake.BodySymbol);
 
-
-            var fruit = PlaceFruit(boardWidth, boardHeight, snake.Body);
+            var fruit = new Food {
+                FColor = ConsoleColor.Cyan,
+                FoodSymbol = "£"
+            };
+            fruit.PlaceFood(boardWidth, boardHeight, snake.Body);
             time.Start();
 
             while (snake.IsAlive) {
@@ -66,10 +71,20 @@ namespace SnakeMess {
                     if (NoRoomForFruit(snake.Body, boardWidth, boardHeight))
                         break;
 
-                    fruit = PlaceFruit(boardWidth, boardHeight, snake.Body);
+                    fruit.PlaceFood(boardWidth, boardHeight, snake.Body);
+
+                    var random = new Random();
+                    var colorArray = Enum.GetValues(typeof(ConsoleColor));
+                    var randomNum = random.Next(0, colorArray.Length);
+                    var randomEnum = (ConsoleColor) colorArray.GetValue(randomNum);
+                    while (snake.Color == (ConsoleColor) colorArray.GetValue(randomNum) || Console.BackgroundColor == (ConsoleColor) colorArray.GetValue(randomNum)) {
+                        randomNum = new Random().Next(0, colorArray.Length);
+                    }
+                    snake.Color = (ConsoleColor) colorArray.GetValue(randomNum);
 
                 } else {
                     snake.Body.RemoveAt(0);
+
 
                     if (SnakeEatsItself(snake.Body, newHead))
                         snake.Die();
@@ -77,46 +92,15 @@ namespace SnakeMess {
                     Console.SetCursorPosition(snake.Tail.X, snake.Tail.Y);
                     Console.Write(" ");
                 }
-
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.SetCursorPosition(snake.Head.X, snake.Head.Y);
-                Console.Write("0");
-                snake.Body.Add(newHead);
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.SetCursorPosition(newHead.X, newHead.Y);
-                Console.Write("@");
+                snake.Print(newHead);
                 previousDirection = newDirection;
             }
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
             Console.WriteLine("Score: {0}", snake.FruitsEaten());
 
             Console.Write("\nPress any key to continue...");
             Console.ReadKey(true);
-        }
-
-
-        public static Point PlaceFruit(int boardWidth, int boardHeight, List<Point> snake) {
-            var newPoint = new Point();
-            var random = new Random();
-
-            while (true) {
-                newPoint.X = random.Next(0, boardWidth);
-                newPoint.Y = random.Next(0, boardHeight);
-                var foundSpot = true;
-
-                foreach (var point in snake)
-                    if (point.Equals(newPoint)) {
-                        foundSpot = false;
-                        break;
-                    }
-
-                if (!foundSpot)
-                    continue;
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.SetCursorPosition(newPoint.X, newPoint.Y);
-                Console.Write("$");
-                return newPoint;
-            }
         }
 
         public static bool SnakeEatsItself(List<Point> snake, Point newHead) {

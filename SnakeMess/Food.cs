@@ -3,37 +3,40 @@ using System.Collections.Generic;
 
 namespace SnakeMess
 {
-    class Food
-    {
+    class Food {
+        
         public int X { get; set; }
         public int Y { get; set; }
+        public ConsoleColor FColor { get; set; } = ConsoleColor.Yellow;
+        public String FoodSymbol { get; set; } = "$";
+        public Point Point { get; set; }
 
         public Food()
         {
-            X = 0;
-            Y = 0;
+            Point = new Point();
         }
+
+
         public void PlaceFood(int boardWidth, int boardHeight, List<Point> snake)
         {
             var random = new Random();
 
-            while (true)
-            {
-                this.X = random.Next(0, boardWidth);
-                this.Y = random.Next(0, boardHeight);
+            while (true) {
+                var randomPoint = new Point().Random(boardWidth, boardHeight);
+                X = randomPoint.X;
+                Y = randomPoint.Y;
                 var foundSpot = true;
 
-                foreach (var point in snake)
-                    if (point.Equals(this))
-                    {
+                foreach (var snakePoint in snake)
+                    if (snakePoint == Point) {
                         foundSpot = false;
                         break;
                     }
 
                 if (!foundSpot) continue;
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = FColor;
                 Console.SetCursorPosition(this.X, this.Y);
-                Console.Write("$");
+                Console.Write(FoodSymbol);
                 break;
             }
         }
