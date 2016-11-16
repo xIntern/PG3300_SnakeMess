@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Diagnostics;
 
-namespace SnakeMess
-{
+namespace SnakeMess {
 
-    class Client
-    {
-        public static void Main(string[] arguments)
-        {
+    class Client {
+        public static void Main(string[] arguments) {
             var pause = false;
             var newDirection = new Point(0, 1); // 0 = up, 1 = right, 2 = down, 3 = left
             var previousDirection = newDirection;
             int boardWidth = Console.WindowWidth, boardHeight = Console.WindowHeight;
-            Food fruit = new Food();
             var time = new Stopwatch();
-            var snake = new Snake();
-            snake.Size = 4;
+            var snake = new Snake(4);
 
             Console.Clear();
             Console.CursorVisible = false;
@@ -26,16 +22,15 @@ namespace SnakeMess
             Console.Write("@");
 
 
-            fruit.PlaceFood(boardWidth, boardHeight, snake.Body);
+            var fruit = PlaceFruit(boardWidth, boardHeight, snake.Body);
             time.Start();
 
-            while (snake.IsAlive)
-            {
+            while (snake.IsAlive) {
 
-                if (Console.KeyAvailable)
-                {
+                if (Console.KeyAvailable) {
                     var consoleInput = Console.ReadKey(true);
-                    if (consoleInput.Key == ConsoleKey.Escape) break;
+                    if (consoleInput.Key == ConsoleKey.Escape)
+                        break;
                     if (consoleInput.Key == ConsoleKey.Spacebar)
                         pause = !pause;
                     else if (consoleInput.Key == ConsoleKey.UpArrow && previousDirection.Y != 1)
@@ -48,7 +43,8 @@ namespace SnakeMess
                         newDirection = new Point(-1, 0);
 
                 }
-                if (pause) continue;
+                if (pause)
+                    continue;
 
 
                 if (time.ElapsedMilliseconds < 100)
@@ -65,18 +61,18 @@ namespace SnakeMess
                     break;
                 if (newHead.Y < 0 || newHead.Y >= boardHeight)
                     break;
-                if (newHead.X == fruit.X && newHead.Y == fruit.Y)
-                {
+                if (newHead.X == fruit.X && newHead.Y == fruit.Y) {
 
-                    if (NoRoomForFruit(snake.Body, boardWidth, boardHeight)) break;
+                    if (NoRoomForFruit(snake.Body, boardWidth, boardHeight))
+                        break;
 
-                    fruit.PlaceFood(boardWidth, boardHeight, snake.Body);
+                    fruit = PlaceFruit(boardWidth, boardHeight, snake.Body);
 
-                }
-                else {
+                } else {
                     snake.Body.RemoveAt(0);
 
-                    if (SnakeEatsItself(snake.Body, newHead)) snake.Die();
+                    if (SnakeEatsItself(snake.Body, newHead))
+                        snake.Die();
 
                     Console.SetCursorPosition(snake.Tail.X, snake.Tail.Y);
                     Console.Write(" ");
@@ -91,20 +87,47 @@ namespace SnakeMess
                 Console.Write("@");
                 previousDirection = newDirection;
             }
-            // Console.Clear();
+            Console.Clear();
+            Console.WriteLine("Score: {0}", snake.FruitsEaten());
+
+            Console.Write("\nPress any key to continue...");
+            Console.ReadKey(true);
         }
 
-        public static bool SnakeEatsItself(List<Point> snake, Point newHead)
-        {
-            foreach (var point in snake)
-            {
-                if (point.X == newHead.X && point.Y == newHead.Y) return true;
+
+        public static Point PlaceFruit(int boardWidth, int boardHeight, List<Point> snake) {
+            var newPoint = new Point();
+            var random = new Random();
+
+            while (true) {
+                newPoint.X = random.Next(0, boardWidth);
+                newPoint.Y = random.Next(0, boardHeight);
+                var foundSpot = true;
+
+                foreach (var point in snake)
+                    if (point.Equals(newPoint)) {
+                        foundSpot = false;
+                        break;
+                    }
+
+                if (!foundSpot)
+                    continue;
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.SetCursorPosition(newPoint.X, newPoint.Y);
+                Console.Write("$");
+                return newPoint;
+            }
+        }
+
+        public static bool SnakeEatsItself(List<Point> snake, Point newHead) {
+            foreach (var point in snake) {
+                if (point.X == newHead.X && point.Y == newHead.Y)
+                    return true;
             }
             return false;
         }
 
-        public static bool NoRoomForFruit(List<Point> snake, int boardWidth, int boardHeight)
-        {
+        public static bool NoRoomForFruit(List<Point> snake, int boardWidth, int boardHeight) {
             return snake.Count + 1 >= boardWidth * boardHeight;
         }
     }
