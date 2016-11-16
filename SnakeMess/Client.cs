@@ -13,8 +13,8 @@ namespace SnakeMess {
             var time = new Stopwatch();
             var snake = new Snake {
                 Color = ConsoleColor.Red,
-                HeadSymbol = "-",
-                BodySymbol = "A"
+                HeadSymbol = "@",
+                BodySymbol = "0"
             };
 
             Console.Clear();
@@ -25,7 +25,7 @@ namespace SnakeMess {
 
             var fruit = new Food {
                 FColor = ConsoleColor.Cyan,
-                FoodSymbol = "£"
+                FoodSymbol = "$"
             };
             fruit.PlaceFood(boardWidth, boardHeight, snake.Body);
             time.Start();
@@ -72,15 +72,12 @@ namespace SnakeMess {
                         break;
 
                     fruit.PlaceFood(boardWidth, boardHeight, snake.Body);
-
-                    var random = new Random();
-                    var colorArray = Enum.GetValues(typeof(ConsoleColor));
-                    var randomNum = random.Next(0, colorArray.Length);
-                    var randomEnum = (ConsoleColor) colorArray.GetValue(randomNum);
-                    while (snake.Color == (ConsoleColor) colorArray.GetValue(randomNum) || Console.BackgroundColor == (ConsoleColor) colorArray.GetValue(randomNum)) {
-                        randomNum = new Random().Next(0, colorArray.Length);
+                    
+                    var newColor = new RandomColor().Color;
+                    while (snake.Color == newColor || Console.BackgroundColor == newColor) {
+                        newColor = new RandomColor().Color;
                     }
-                    snake.Color = (ConsoleColor) colorArray.GetValue(randomNum);
+                    snake.Color = newColor;
 
                 } else {
                     snake.Body.RemoveAt(0);

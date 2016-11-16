@@ -34,7 +34,7 @@ namespace SnakeMess
                     }
 
                 if (!foundSpot) continue;
-                Console.ForegroundColor = FColor;
+                Console.ForegroundColor = new RandomColor().Color;
                 Console.SetCursorPosition(this.X, this.Y);
                 Console.Write(FoodSymbol);
                 break;

@@ -21,7 +21,7 @@ namespace SnakeMess {
         public bool IsAlive { get; private set; } = true;
 
         public ConsoleColor Color { get; set; } = ConsoleColor.Green;
-        public string HeadSymbol { get; set; } = "-";
+        public string HeadSymbol { get; set; } = "@";
         public string BodySymbol { get; set; } = "0";
 
         public Snake(int length = 4) {
