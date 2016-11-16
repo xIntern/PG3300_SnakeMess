@@ -5,13 +5,8 @@ namespace SnakeMess
 {
     class Food {
         public ConsoleColor FColor { get; set; } = ConsoleColor.Yellow;
-        public String FoodSymbol { get; set; } = "$";
-        public Point Point { get; set; }
-
-        public Food() {
-            Point = new Point();
-        }
-
+        public string FoodSymbol { get; set; } = "$";
+        public Point Point { get; set; } = new Point();
 
         public void PlaceFood(int boardWidth, int boardHeight, List<Point> snake) {
             while (true) {
@@ -25,7 +20,9 @@ namespace SnakeMess
                     }
 
                 if (!foundSpot) continue;
-                FColor = new RandomColor(new[] {"Black", "DarkBlue"}).Color;
+                string[] colorBlacklist = {"Black", "DarkBlue", FColor.ToString()};
+                var randomColor = new RandomColor(colorBlacklist).Color;
+                FColor = randomColor;
                 Console.ForegroundColor = FColor;
                 Console.SetCursorPosition(Point.X, Point.Y);
                 Console.Write(FoodSymbol);
