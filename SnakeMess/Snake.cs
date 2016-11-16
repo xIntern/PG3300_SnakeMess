@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SnakeMess {
     public class Snake {
-        private int Lenght { get; set; }
+        private int Length { get; set; }
 
         public Point Tail {
             get { return Body.First(); }
@@ -25,8 +25,8 @@ namespace SnakeMess {
         public string BodySymbol { get; set; } = "0";
 
         public Snake(int length = 4) {
-            Lenght = length;
-            for (var i = 0; i <= Lenght; i++) {
+            Length = length;
+            for (var i = 0; i <= Length; i++) {
                 Body.Add(new Point(10, 10));
             }
         }
@@ -42,7 +42,7 @@ namespace SnakeMess {
         }
 
         public int FruitsEaten() {
-            return Body.Count - 1 - Lenght;
+            return Body.Count - 1 - Length;
         }
 
         public void Print(Point newHead) {
