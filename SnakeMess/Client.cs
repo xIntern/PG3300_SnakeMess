@@ -7,7 +7,7 @@ namespace SnakeMess {
     class Client {
         public static void Main(string[] arguments) {
             var pause = false;
-            var newDirection = new Point(0, 1); // 0 = up, 1 = right, 2 = down, 3 = left
+            var newDirection = new Point(0, 1);
             var previousDirection = newDirection;
             int boardWidth = Console.WindowWidth, boardHeight = Console.WindowHeight;
             var time = new Stopwatch();
