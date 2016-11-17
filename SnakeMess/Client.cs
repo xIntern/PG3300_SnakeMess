@@ -14,7 +14,7 @@ namespace SnakeMess {
             var snake = new Snake {
                 Color = ConsoleColor.Yellow,
                 HeadSymbol = "@",
-                BodySymbol = "0"
+                BodySymbol = "|"
             };
             Console.Clear();
             Console.CursorVisible = false;
@@ -22,7 +22,7 @@ namespace SnakeMess {
             Console.SetCursorPosition(10, 10);
             Console.Write(snake.BodySymbol);
 
-            var fruit = new Food {FoodSymbol = "$"};
+            var fruit = new Food {FoodSymbol = "*"};
             fruit.PlaceFood(boardWidth, boardHeight, snake.Body);
             time.Start();
 
@@ -34,14 +34,22 @@ namespace SnakeMess {
                         break;
                     if (consoleInput.Key == ConsoleKey.Spacebar)
                         pause = !pause;
-                    else if (consoleInput.Key == ConsoleKey.UpArrow && previousDirection.Y != 1)
+                    else if (consoleInput.Key == ConsoleKey.UpArrow && previousDirection.Y != 1) {
                         newDirection = new Point(0, -1);
-                    else if (consoleInput.Key == ConsoleKey.RightArrow && previousDirection.X != -1)
+                        snake.BodySymbol = "|";
+                    }
+                    else if (consoleInput.Key == ConsoleKey.RightArrow && previousDirection.X != -1) {
                         newDirection = new Point(1, 0);
-                    else if (consoleInput.Key == ConsoleKey.DownArrow && previousDirection.Y != -1)
+                        snake.BodySymbol = "~";
+                    }
+                    else if (consoleInput.Key == ConsoleKey.DownArrow && previousDirection.Y != -1) {
                         newDirection = new Point(0, 1);
-                    else if (consoleInput.Key == ConsoleKey.LeftArrow && previousDirection.X != 1)
+                        snake.BodySymbol = "|";
+                    }
+                    else if (consoleInput.Key == ConsoleKey.LeftArrow && previousDirection.X != 1) {
                         newDirection = new Point(-1, 0);
+                        snake.BodySymbol = "~";
+                    }
 
                 }
                 if (pause)
