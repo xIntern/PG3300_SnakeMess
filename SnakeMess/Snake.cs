@@ -62,5 +62,14 @@ namespace SnakeMess {
             }
             return false;
         }
+
+        public bool HitsWall(Point newHead, int boardHeight, int boardWidth)
+        {
+            if ((newHead.X < 0 || newHead.X >= boardWidth) || 
+                (newHead.Y < 0 || newHead.Y >= boardHeight))
+                return true;
+
+            return false;
+        }
     }
 }

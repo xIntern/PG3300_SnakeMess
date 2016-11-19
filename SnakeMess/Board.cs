@@ -46,39 +46,32 @@ namespace SnakeMess
                 if (consoleInput.pause)
                     continue;
 
-
                 if (time.ElapsedMilliseconds < 100)
                     continue;
+
                 time.Restart();
 
                 var newHead = new Point(snake.Head);
+                newHead = newHead + consoleInput.newDirection;
 
-                newHead.X += consoleInput.newDirection.X;
-                newHead.Y += consoleInput.newDirection.Y;
-
-
-                if (newHead.X < 0 || newHead.X >= boardWidth)
+                if (snake.HitsWall(newHead, boardHeight, boardWidth))
                     break;
-                if (newHead.Y < 0 || newHead.Y >= boardHeight)
-                    break;
+
+                if (snake.EatsItself(snake.Body, newHead))
+                    snake.Die();
+
                 if (newHead == food.Point)
                 {
-
                     if (food.NoRoomForMore(snake.Body, boardWidth, boardHeight))
                         break;
 
 //                    snake.Color = food.FColor;
                     food.PlaceFood(boardWidth, boardHeight, snake.Body);
 
-
                 }
                 else
                 {
                     snake.Body.RemoveAt(0);
-
-
-                    if (snake.EatsItself(snake.Body, newHead))
-                        snake.Die();
 
                     Console.SetCursorPosition(snake.Tail.X, snake.Tail.Y);
                     Console.Write(" ");
