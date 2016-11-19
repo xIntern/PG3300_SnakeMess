@@ -37,7 +37,7 @@ namespace SnakeMess
             time.Start();
         }
 
-        public void StartGame()
+        public void StartGame(bool menu)
         {
             while (snake.IsAlive)
             {
@@ -86,10 +86,10 @@ namespace SnakeMess
                 snake.Print(newHead);
                 consoleInput.previousDirection = consoleInput.newDirection;
             }
-            GameOver();
+            if(menu)ScoreMenu();
         }
 
-        public void GameOver()
+        public void ScoreMenu()
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
