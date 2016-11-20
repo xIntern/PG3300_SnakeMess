@@ -23,17 +23,15 @@ namespace SnakeMess
 
         public void GetInput()
         {
-            if (Console.KeyAvailable)
+            if (!Console.KeyAvailable) return;
+            var consoleInput = Console.ReadKey(true);
+            if (consoleInput.Key == ConsoleKey.Escape)
+                escape = true;
+            if (consoleInput.Key == ConsoleKey.Spacebar)
+                pause = !pause;
+            else
             {
-                var consoleInput = Console.ReadKey(true);
-                if (consoleInput.Key == ConsoleKey.Escape)
-                    escape = true;
-                if (consoleInput.Key == ConsoleKey.Spacebar)
-                    pause = !pause;
-                else
-                {
-                    newDirection = SnakeDirection(consoleInput, previousDirection);
-                }
+                newDirection = SnakeDirection(consoleInput, previousDirection);
             }
         }
 

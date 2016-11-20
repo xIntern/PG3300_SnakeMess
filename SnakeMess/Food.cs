@@ -3,18 +3,22 @@ using System.Collections.Generic;
 
 namespace SnakeMess
 {
-    class Food {
+    class Food
+    {
         public ConsoleColor FColor { get; set; } = ConsoleColor.Green;
         public string FoodSymbol { get; set; } = "$";
         public Point Point { get; set; } = new Point();
 
-        public void PlaceFood(int boardWidth, int boardHeight, List<Point> snake) {
-            while (true) {
+        public void PlaceFood(int boardWidth, int boardHeight, List<Point> snake)
+        {
+            while (true)
+            {
                 Point = new Point().Random(boardWidth, boardHeight);
                 var foundSpot = true;
 
                 foreach (var snakePoint in snake)
-                    if (snakePoint == Point) {
+                    if (snakePoint == Point)
+                    {
                         foundSpot = false;
                         break;
                     }

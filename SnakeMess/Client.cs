@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-
+﻿
 namespace SnakeMess {
 
-    class Client {
-        public static void Main(string[] arguments) {
+    class Client
+    {
+        public static void Main(string[] arguments)
+        {
             bool withScoreMenu = true;
-            Board snakeGame = new Board();
+            var snakeGame = new Board();
             snakeGame.SetBoard();
-            snakeGame.StartGame(withScoreMenu);
+            snakeGame.StartGame(!withScoreMenu);
         }
     }
 }

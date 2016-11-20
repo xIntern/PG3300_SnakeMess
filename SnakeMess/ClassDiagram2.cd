@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SnakeMess.Board">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAEAAgAAIAAAAAAAAIAAgAAAAAAAACAAAAAQAAAI=</HashCode>
+      <FileName>Board.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="snake" />
+      <Property Name="food" />
+      <Property Name="consoleInput" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SnakeMess.Client">
+    <Position X="4.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SnakeMess.Food">
+    <Position X="12.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAACAAEAAAAAAAAAAAAAAAAAgBAAA=</HashCode>
+      <FileName>Food.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Point" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SnakeMess.Input">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAACAAAAAEAAEAAAAAAAAAAAAAAAQIAA=</HashCode>
+      <FileName>Input.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="newDirection" />
+      <Property Name="previousDirection" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SnakeMess.Point">
+    <Position X="9" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAAAAAAYiA=</HashCode>
+      <FileName>Point.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SnakeMess.RandomColor">
+    <Position X="12.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAA=</HashCode>
+      <FileName>RandomColor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SnakeMess.Snake">
+    <Position X="4.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAACAABBAAIAIAgAAABAEBAAAAAAAAAQAACgAAEAAA=</HashCode>
+      <FileName>Snake.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Tail" />
+      <Property Name="Head" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

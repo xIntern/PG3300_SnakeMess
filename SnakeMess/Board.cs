@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SnakeMess
 {
     class Board
     {
-        int boardWidth { set; get; }
-        int boardHeight { set; get; }
-        Input consoleInput { set; get; }
-        Snake snake { set; get; }
-        Stopwatch time { set; get; }
-        Food food { set; get; }
+        int BoardWidth { set; get; }
+        int BoardHeight { set; get; }
+        Input ConsoleInput { set; get; }
+        Snake Snake { set; get; }
+        Stopwatch Time { set; get; }
+        Food Food { set; get; }
 
         public Board()
         {
-            consoleInput = new Input();
-            boardHeight = Console.WindowHeight;
-            boardWidth = Console.WindowWidth;
-            snake = new Snake();
-            time = new Stopwatch();
-            food = new Food();
+            ConsoleInput = new Input();
+            BoardHeight = Console.WindowHeight;
+            BoardWidth = Console.WindowWidth;
+            Snake = new Snake();
+            Time = new Stopwatch();
+            Food = new Food();
         }
 
         public void SetBoard()
@@ -32,52 +29,52 @@ namespace SnakeMess
             Console.CursorVisible = false;
             Console.Title = "Westerdals Oslo ACT - SNAKE";
             Console.SetCursorPosition(10, 10);
-            Console.Write(snake.BodySymbol);
-            food.PlaceFood(boardWidth, boardHeight, snake.Body);
-            time.Start();
+            Console.Write(Snake.BodySymbol);
+            Food.PlaceFood(BoardWidth, BoardHeight, Snake.Body);
+            Time.Start();
         }
 
         public void StartGame(bool menu)
         {
-            while (snake.IsAlive)
+            while (Snake.IsAlive && !ConsoleInput.escape)
             {
-                consoleInput.GetInput();
+                ConsoleInput.GetInput();
 
-                if (consoleInput.pause)
+                if (ConsoleInput.pause)
                     continue;
 
-                if (time.ElapsedMilliseconds < 100)
+                if (Time.ElapsedMilliseconds < 100)
                     continue;
 
-                time.Restart();
+                Time.Restart();
 
-                var newHead = new Point(snake.Head);
-                newHead = newHead + consoleInput.newDirection;
+                var newHead = new Point(Snake.Head);
+                newHead = newHead + ConsoleInput.newDirection;
 
-                if (snake.HitsWall(newHead, boardHeight, boardWidth))
+                if (Snake.HitsWall(newHead, BoardHeight, BoardWidth))
                     break;
 
-                if (snake.EatsItself(snake.Body, newHead))
-                    snake.Die();
+                if (Snake.EatsItself(Snake.Body, newHead))
+                    Snake.Die();
 
-                if (newHead == food.Point)
+                if (newHead == Food.Point)
                 {
-                    if (food.NoRoomForMore(snake.Body, boardWidth, boardHeight))
+                    if (Food.NoRoomForMore(Snake.Body, BoardWidth, BoardHeight))
                         break;
 
 //                    snake.Color = food.FColor;
-                    food.PlaceFood(boardWidth, boardHeight, snake.Body);
+                    Food.PlaceFood(BoardWidth, BoardHeight, Snake.Body);
 
                 }
                 else
                 {
-                    snake.Body.RemoveAt(0);
+                    Snake.Body.RemoveAt(0);
 
-                    Console.SetCursorPosition(snake.Tail.X, snake.Tail.Y);
+                    Console.SetCursorPosition(Snake.Tail.X, Snake.Tail.Y);
                     Console.Write(" ");
                 }
-                snake.Print(newHead);
-                consoleInput.previousDirection = consoleInput.newDirection;
+                Snake.Print(newHead);
+                ConsoleInput.previousDirection = ConsoleInput.newDirection;
             }
             if(menu)ScoreMenu();
         }
@@ -86,7 +83,7 @@ namespace SnakeMess
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
-            Console.WriteLine("Score: {0}", snake.FruitsEaten());
+            Console.WriteLine("Score: {0}", Snake.FruitsEaten());
 
             Console.Write("\nPress any key to continue...");
             Console.ReadKey(true);
