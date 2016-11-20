@@ -1,37 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SnakeMess
 {
     class Input
     {
 
-        public Point newDirection { get; set; }
-        public Point previousDirection { get; set; }
-        public bool pause { get; set; } = false;
-        public bool escape { get; set; } = false;
+        public Point NewDirection { get; set; }
+        public Point PreviousDirection { get; set; }
+        public bool Pause { get; set; } = false;
+        public bool Escape { get; set; } = false;
 
 
 
         public Input()
         {
-            newDirection = new Point(0, 1);
-            previousDirection = newDirection;
+            NewDirection = new Point(0, 1);
+            PreviousDirection = NewDirection;
         }
 
         public void GetInput()
         {
-            if (!Console.KeyAvailable) return;
+            if (!Console.KeyAvailable)
+            {
+                return;
+            }
             var consoleInput = Console.ReadKey(true);
             if (consoleInput.Key == ConsoleKey.Escape)
-                escape = true;
-            if (consoleInput.Key == ConsoleKey.Spacebar)
-                pause = !pause;
-            else
             {
-                newDirection = SnakeDirection(consoleInput, previousDirection);
+                Escape = true;
+            }
+            if (consoleInput.Key == ConsoleKey.Spacebar)
+            {
+                Pause = !Pause;
+            } else
+            {
+                NewDirection = SnakeDirection(consoleInput, PreviousDirection);
             }
         }
 

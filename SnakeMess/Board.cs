@@ -5,12 +5,12 @@ namespace SnakeMess
 {
     class Board
     {
-        int BoardWidth { set; get; }
-        int BoardHeight { set; get; }
-        Input ConsoleInput { set; get; }
-        Snake Snake { set; get; }
-        Stopwatch Time { set; get; }
-        Food Food { set; get; }
+        private int BoardWidth { get; }
+        private int BoardHeight { get; }
+        private Input ConsoleInput { get; }
+        private Snake Snake { get; }
+        private Stopwatch Time { get; }
+        private Food Food { get; }
 
         public Board()
         {
@@ -24,7 +24,6 @@ namespace SnakeMess
 
         public void SetBoard()
         {
-
             Console.Clear();
             Console.CursorVisible = false;
             Console.Title = "Westerdals Oslo ACT - SNAKE";
@@ -36,31 +35,42 @@ namespace SnakeMess
 
         public void StartGame(bool menu)
         {
-            while (Snake.IsAlive && !ConsoleInput.escape)
+            while (Snake.IsAlive && !ConsoleInput.Escape)
             {
                 ConsoleInput.GetInput();
 
-                if (ConsoleInput.pause)
+                if (ConsoleInput.Pause)
+                {
                     continue;
+                }
 
                 if (Time.ElapsedMilliseconds < 100)
+                {
                     continue;
+                }
 
                 Time.Restart();
 
                 var newHead = new Point(Snake.Head);
-                newHead = newHead + ConsoleInput.newDirection;
+                newHead = newHead + ConsoleInput.NewDirection;
 
                 if (Snake.HitsWall(newHead, BoardHeight, BoardWidth))
+                {
                     break;
+                }
 
                 if (Snake.EatsItself(Snake.Body, newHead))
+                {
                     Snake.Die();
+                }
+                    
 
                 if (newHead == Food.Point)
                 {
                     if (Food.NoRoomForMore(Snake.Body, BoardWidth, BoardHeight))
+                    {
                         break;
+                    }
 
 //                    snake.Color = food.FColor;
                     Food.PlaceFood(BoardWidth, BoardHeight, Snake.Body);
@@ -74,9 +84,12 @@ namespace SnakeMess
                     Console.Write(" ");
                 }
                 Snake.Print(newHead);
-                ConsoleInput.previousDirection = ConsoleInput.newDirection;
+                ConsoleInput.PreviousDirection = ConsoleInput.NewDirection;
             }
-            if(menu)ScoreMenu();
+            if (menu)
+            {
+                ScoreMenu();
+            }
         }
 
         public void ScoreMenu()

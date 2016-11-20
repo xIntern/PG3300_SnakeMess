@@ -1,53 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="SnakeMess.Board">
-    <Position X="2.25" Y="3.25" Width="1.5" />
+    <Position X="6" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAEAAgAAIAAAAAAAAIAAgAAAAAAAACAAAAAQAAAI=</HashCode>
+      <HashCode>QACAAAAAAAAIAAAgAAAAAAAgAAAIAAAAAAAAAgQAAQA=</HashCode>
       <FileName>Board.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Food" />
+      <Property Name="Snake" />
+      <Property Name="ConsoleInput" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="SnakeMess.Client">
-    <Position X="5.75" Y="3.25" Width="1.5" />
+    <Position X="7.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Client.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SnakeMess.Food">
-    <Position X="4" Y="0.5" Width="1.5" />
+    <Position X="3.25" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAACAAEAAAAAAAAAAAAAAAAAgBAAA=</HashCode>
       <FileName>Food.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Point" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="SnakeMess.Input">
-    <Position X="4" Y="3.25" Width="1.5" />
+    <Position X="3.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAACAAAAAEAAEAAAAAAAAAAAAAAAQIAA=</HashCode>
       <FileName>Input.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="newDirection" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="SnakeMess.Point">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAAAAAAYiA=</HashCode>
       <FileName>Point.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SnakeMess.RandomColor">
-    <Position X="5.75" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAA=</HashCode>
       <FileName>RandomColor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SnakeMess.Snake">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="3.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAACAABBAAIAIAgAAABAEBAAAAAAAAAQAACgAAEAAA=</HashCode>
       <FileName>Snake.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Head" />
+    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
